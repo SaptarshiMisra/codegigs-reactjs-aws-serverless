@@ -1,0 +1,10 @@
+- http:
+    method: get
+    path : /notes
+    cors: true
+    # add code to attach authorizer
+    authorizer:
+        type: COGNITO_USER_POOLS
+        authorizerId:
+            'Fn::ImportValue': auth-${self:provider.stage}-${self:provider.apiname}-authorizer
+  

@@ -1,0 +1,22 @@
+Resources:
+  apicall:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: api-${self:provider.stage}-${self:provider.apiname}
+
+Outputs:
+  APIIdApiCall:
+    Description: API id
+    Value:
+      Ref: apicall
+    Export:
+      Name: api-${self:provider.apiname}-${self:provider.stage}-apiid
+
+  APIRootIdApiCall:
+    Description: API root id
+    Value:
+      Fn::GetAtt:
+        - apicall
+        - RootResourceId
+    Export:
+      Name: api-${self:provider.apiname}-${self:provider.stage}-apirootid

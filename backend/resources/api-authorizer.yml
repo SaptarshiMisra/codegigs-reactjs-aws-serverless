@@ -1,0 +1,22 @@
+Resources:
+  ApiGatewayAuthorizer:
+    DependsOn:
+      - apicall
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      AuthorizerResultTtlInSeconds: 300
+      IdentitySource: method.request.header.Authorization
+      RestApiId:
+        Ref: apicall
+      Type: COGNITO_USER_POOLS
+      Name: Authorizer
+      ProviderARNs:
+        - 'Fn::ImportValue': userpoolarn
+
+Outputs:
+  AuthorizerID:
+    Description: Authorizer for api call
+    Value:
+      Ref: ApiGatewayAuthorizer
+    Export:
+      Name: auth-${self:provider.stage}-${self:provider.apiname}-authorizer

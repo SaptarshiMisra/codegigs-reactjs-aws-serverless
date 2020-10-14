@@ -1,0 +1,17 @@
+service: backend
+
+custom:
+  stage: ${self:provider.stage}
+  
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: ap-south-1
+  stage: dev
+  apiname: apicall
+
+
+resources:
+  - ${file(./resources/cognito-user-pool.yml)}
+  - ${file(./resources/api-main.yml)}
+  - ${file(./resources/api-authorizer.yml)}

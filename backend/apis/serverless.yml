@@ -1,0 +1,22 @@
+service: backend-apis
+
+custom:
+  stage: ${self:provider.stage}
+  
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: ap-south-1
+  stage: dev
+  apiname: apicall
+  # connect the root api that was created from from the api-main
+  apiGateway:
+    restApiId: 
+      'Fn::ImportValue': api-${self:provider.apiname}-${self:provider.stage}-apiid
+    restApiRootResourceId: 
+      'Fn::ImportValue': api-${self:provider.apiname}-${self:provider.stage}-apirootid
+
+
+
+functions:
+  - ${file(./templates/functions.yml)} 

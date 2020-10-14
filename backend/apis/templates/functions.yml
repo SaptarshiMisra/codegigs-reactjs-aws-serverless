@@ -1,0 +1,4 @@
+listnotes:
+  handler: listnotes.getallnotes
+  events:
+    ${file(./events/events.yml)}
